@@ -15,3 +15,6 @@ client.once("ready", () => {
     )
   );
 });
+
+const autoReply = require("./autoReply");
+autoReply(client);
