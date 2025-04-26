@@ -5,6 +5,7 @@ const {
   ApplicationIntegrationType,
   InteractionContextType,
   MessageFlagsBitField,
+  Events,
 } = require("discord.js");
 
 module.exports = {
@@ -25,13 +26,6 @@ module.exports = {
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages),
   category: "🔧 - Utilitaire",
-  permissions: [
-    PermissionFlagsBits.SendMessages,
-    PermissionFlagsBits.EmbedLinks,
-    PermissionFlagsBits.ViewChannel,
-    PermissionFlagsBits.ReadMessageHistory,
-    PermissionFlagsBits.UseExternalEmojis,
-  ],
 
   async run(interaction) {
     try {
