@@ -1,16 +1,10 @@
 const {
   EmbedBuilder,
   SlashCommandBuilder,
-  ButtonBuilder,
-  ActionRowBuilder,
-  ButtonStyle,
-  PermissionsBitField,
   PermissionFlagsBits,
   ApplicationIntegrationType,
   InteractionContextType,
-  SlashCommandSubcommandGroupBuilder,
   MessageFlagsBitField,
-  MessageFlags,
 } = require("discord.js");
 
 module.exports = {
@@ -42,7 +36,6 @@ module.exports = {
   async run(interaction) {
     try {
       const start = Date.now();
-      // Effectuer une requête simple à la base de données pour mesurer la latence
 
       const embed = new EmbedBuilder()
         .setDescription(`# \`🏓\` Pong !\n*Nous calculons encore mon ping...*`)
