@@ -88,7 +88,10 @@ module.exports = {
 
       const embed = new EmbedBuilder()
       .setDescription("Evaluation envoyé!")
-      interaction.reply({embeds: [embed], flags: MessageFlags.Ephemeral})
+      interaction.reply({
+        embeds: [embed],
+        flags: MessageFlagsBitField.Flags.Ephemeral, // Utilisez flags pour les réponses éphémères
+      });
     } catch (error) {
       console.error(error);
     }
