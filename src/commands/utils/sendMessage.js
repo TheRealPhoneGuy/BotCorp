@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, MessageFlagsBitField } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -57,13 +57,13 @@ module.exports = {
         if (!content) {
           return interaction.reply({
             content: "Vous devez fournir un contenu pour le message texte.",
-            ephemeral: true,
+            flags: MessageFlagsBitField.Flags.Ephemeral, // Utilisation de MessageFlagsBitField
           });
         }
         await interaction.reply({ content: content });
       } else if (type === "embed") {
         const title = interaction.options.getString("titre");
-        const description = interaction.options.getString("contenu");
+        let description = interaction.options.getString("contenu");
         let color = interaction.options.getString("couleur") || "#0099ff";
         const image = interaction.options.getString("image");
         const footer = interaction.options.getString("footer");
@@ -82,6 +82,11 @@ module.exports = {
           color = "#0099ff"; // Couleur par défaut si la couleur est invalide
         }
 
+        // Fournir une description par défaut si elle est manquante
+        if (!description) {
+          description = "Aucune description fournie.";
+        }
+
         const embed = new EmbedBuilder().setColor(color);
 
         if (title) embed.setTitle(title);
@@ -95,7 +100,7 @@ module.exports = {
       console.error(error);
       await interaction.reply({
         content: "Une erreur est survenue lors de l'envoi du message.",
-        ephemeral: true,
+        flags: MessageFlagsBitField.Flags.Ephemeral, // Utilisation de MessageFlagsBitField
       });
     }
   },
