@@ -17,8 +17,13 @@ module.exports = {
         const command = client.commands.get(interaction.commandName);
 
         if (!command) {
+          let color = await getColor(interaction);
+          if (!/^#[0-9A-F]{6}$/i.test(color)) {
+            color = "#0099ff"; // Couleur par défaut si la couleur est invalide
+          }
+
           const embed = new EmbedBuilder()
-            .setColor(await getColor(interaction))
+            .setColor(color)
             .setDescription(
               `**\`🧐\` Hello \`${interaction.user.username}\`, il semble que cette commande n'existe plus.**\n-# *Prenez une capture d'écran, c'est rare !*`
             )
@@ -26,6 +31,10 @@ module.exports = {
               iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
               text: `Demandé par ${interaction.user.username}`,
             });
+
+          await interaction.channel.send({
+            embeds: [embed],
+          }).catch(console.error);
 
           return interaction.reply({
             embeds: [embed],
@@ -44,11 +53,20 @@ module.exports = {
 
           if (timeLeft > 0) {
             const timestamp = Math.floor((now + timeLeft) / 1000);
+            let color = await getColor(interaction);
+            if (!/^#[0-9A-F]{6}$/i.test(color)) {
+              color = "#0099ff"; // Couleur par défaut si la couleur est invalide
+            }
+
             const embed = new EmbedBuilder()
-              .setColor(await getColor(interaction))
+              .setColor(color)
               .setDescription(
                 `\`⏲️\` **Tu dois attendre encore <t:${timestamp}:R> avant d'utiliser cette commande.**`
               );
+
+            await interaction.channel.send({
+              embeds: [embed],
+            }).catch(console.error);
 
             return interaction.reply({
               embeds: [embed],
@@ -99,8 +117,13 @@ module.exports = {
         const command = client.commands.get(interaction.commandName);
 
         if (!command) {
+          let color = await getColor(interaction);
+          if (!/^#[0-9A-F]{6}$/i.test(color)) {
+            color = "#0099ff"; // Couleur par défaut si la couleur est invalide
+          }
+
           const embed = new EmbedBuilder()
-            .setColor(await getColor(interaction))
+            .setColor(color)
             .setDescription(
               `**\`🧐\` Hello \`${interaction.user.username}\`, cette commande contextuelle semble ne plus exister.**`
             )
@@ -108,6 +131,10 @@ module.exports = {
               iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
               text: `Demandé par ${interaction.user.username}`,
             });
+
+          await interaction.channel.send({
+            embeds: [embed],
+          }).catch(console.error);
 
           return interaction.reply({
             embeds: [embed],
@@ -126,7 +153,34 @@ module.exports = {
         );
 
         if (!component) return;
+
+        const channel = interaction.channel;
+        if (!channel) {
+          return interaction.reply({
+            content: "❌ Le canal spécifié est introuvable.",
+            flags: MessageFlagsBitField.Flags.Ephemeral,
+          });
+        }
+
+        await interaction.reply({
+          content: "❌ Tu as déjà un ticket ouvert.",
+          flags: MessageFlagsBitField.Flags.Ephemeral, // Remplacez ephemeral par flags
+        });
+
         return component.run(interaction, ...args);
+      }
+
+      // === Synchronisation des commandes ===
+      await client.application.commands.set(client.commands.map((cmd) => cmd.data))
+        .catch(console.error);
+
+      // === Chargement des événements ===
+      try {
+        const event = require(`../events/${dir}/${file}`);
+        client.on(event.name, (...args) => event.run(client, ...args));
+        eventCount++;
+      } catch (error) {
+        console.error(`Erreur lors du chargement de l'événement ${file} :`, error);
       }
     } catch (error) {
       console.log(error);
