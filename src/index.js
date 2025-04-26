@@ -5,6 +5,7 @@ require("dotenv").config();
 
 client.login(process.env.Token);
 client.commands = new Collection();
+client.interactions = new Collection();
 client.color = "Blue";
 
 require("./handlers/registers")(client);
