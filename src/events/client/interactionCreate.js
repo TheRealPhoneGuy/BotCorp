@@ -29,7 +29,7 @@ module.exports = {
 
           return interaction.reply({
             embeds: [embed],
-            flags: MessageFlagsBitField.Flags.Ephemeral,
+            flags: MessageFlagsBitField.Flags.Ephemeral, // Remplacez ephemeral par flags
           });
         }
 
@@ -52,7 +52,7 @@ module.exports = {
 
             return interaction.reply({
               embeds: [embed],
-              flags: MessageFlagsBitField.Flags.Ephemeral,
+              flags: MessageFlagsBitField.Flags.Ephemeral, // Remplacez ephemeral par flags
             });
           }
         }
@@ -87,7 +87,7 @@ module.exports = {
             )
               .toArray()
               .join(", ")}\` pour utiliser ce composant.`,
-            flags: MessageFlagsBitField.Flags.Ephemeral,
+            flags: MessageFlagsBitField.Flags.Ephemeral, // Remplacez ephemeral par flags
           });
         }
 
@@ -109,7 +109,10 @@ module.exports = {
               text: `Demandé par ${interaction.user.username}`,
             });
 
-          return interaction.reply({ embeds: [embed], ephemeral: true });
+          return interaction.reply({
+            embeds: [embed],
+            flags: MessageFlagsBitField.Flags.Ephemeral, // Remplacez ephemeral par flags
+          });
         }
 
         return command.run(interaction);
@@ -132,7 +135,7 @@ module.exports = {
           .reply({
             content:
               "Une erreur est survenue lors de l'exécution de l'interaction.",
-            flags: MessageFlagsBitField.Flags.Ephemeral,
+            flags: MessageFlagsBitField.Flags.Ephemeral, // Remplacez ephemeral par flags
           })
           .catch(() => {});
     }
