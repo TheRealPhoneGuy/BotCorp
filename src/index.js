@@ -8,6 +8,3 @@ client.commands = new Collection();
 client.color = "Blue";
 
 require("./handlers/registers")(client);
-
-const autoReply = require("./autoReply");
-autoReply(client);
