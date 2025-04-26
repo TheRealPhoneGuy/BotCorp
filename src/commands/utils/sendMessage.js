@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, MessageFlagsBitField } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -29,7 +29,9 @@ module.exports = {
     .addStringOption((option) =>
       option
         .setName("couleur")
-        .setDescription("La couleur de l'embed (en hexadécimal, ex: #0099ff).")
+        .setDescription(
+          "Choisissez une couleur (rouge, bleu, vert) ou un code hexadécimal (#0099ff)."
+        )
         .setRequired(false)
     )
     .addStringOption((option) =>
@@ -55,7 +57,7 @@ module.exports = {
         if (!content) {
           return interaction.reply({
             content: "Vous devez fournir un contenu pour le message texte.",
-            flags: MessageFlagsBitField.Flags.Ephemeral, // Utilisez flags au lieu de ephemeral
+            ephemeral: true,
           });
         }
         await interaction.reply({ content: content });
@@ -66,8 +68,17 @@ module.exports = {
         const image = interaction.options.getString("image");
         const footer = interaction.options.getString("footer");
 
-        // Vérifiez si la couleur est valide
-        if (!/^#[0-9A-F]{6}$/i.test(color)) {
+        // Définir les couleurs de base
+        const baseColors = {
+          rouge: "#FF0000",
+          bleu: "#0099FF",
+          vert: "#00FF00",
+        };
+
+        // Vérifiez si la couleur est une couleur de base ou un code hexadécimal valide
+        if (baseColors[color.toLowerCase()]) {
+          color = baseColors[color.toLowerCase()];
+        } else if (!/^#[0-9A-F]{6}$/i.test(color)) {
           color = "#0099ff"; // Couleur par défaut si la couleur est invalide
         }
 
