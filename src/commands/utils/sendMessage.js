@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, MessageFlagsBitField } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, MessageFlagsBitField, PermissionFlagsBits } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -45,8 +45,10 @@ module.exports = {
         .setName("footer")
         .setDescription("Texte du footer de l'embed.")
         .setRequired(false)
-    ),
-  category: "🔧 - Utilitaire",
+    )
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
+  category: "🔧 - Utilitaire",    
+  
 
   async run(interaction) {
     try {
