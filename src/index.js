@@ -15,3 +15,11 @@ client.interactions = new Collection();
 client.color = "Blue";
 
 require("./handlers/registers")(client);
+
+client.on("ready", () => {
+  console.log(`✅ ${client.user.tag} en préparation...`);
+});
+
+client.on("error", (error) => {
+  console.error("❌ Une erreur est survenue :", error);
+});
