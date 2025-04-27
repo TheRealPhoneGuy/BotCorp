@@ -5,8 +5,20 @@ module.exports = {
 
   async execute(reaction, user) {
     try {
+      console.log(`📩 Réaction détectée : ${reaction.emoji.name} par ${user.tag}`);
+
       // Ignorer les réactions des bots
       if (user.bot) return;
+
+      // Récupérer la réaction si elle est partielle
+      if (reaction.partial) {
+        try {
+          await reaction.fetch();
+        } catch (error) {
+          console.error("❌ Impossible de récupérer la réaction :", error);
+          return;
+        }
+      }
 
       const starboardChannelId = process.env.STARBOARD_CHANNEL_ID;
       const starboardThreshold = parseInt(process.env.STARBOARD_THRESHOLD, 10) || 5;
@@ -19,13 +31,18 @@ module.exports = {
 
       const starboardChannel = reaction.message.guild.channels.cache.get(starboardChannelId);
 
-      // Vérifier si le canal Starboard existe
+      // Vérifier si le canal Starboard existe et si le bot a les permissions nécessaires
       if (!starboardChannel) {
-        console.error("❌ Le canal Starboard est introuvable.");
+        console.error("❌ Le canal Starboard est introuvable ou inaccessible.");
         return;
       }
 
-      // Vérifier si l'emoji est une étoile (Discord utilise :star:)
+      if (!starboardChannel.permissionsFor(reaction.message.guild.me).has("SendMessages")) {
+        console.error("❌ Le bot n'a pas la permission d'envoyer des messages dans le canal Starboard.");
+        return;
+      }
+
+      // Vérifier si l'emoji est une étoile
       if (reaction.emoji.name !== "⭐" && reaction.emoji.name !== "star") {
         console.log("❌ Réaction ignorée car ce n'est pas une étoile.");
         return;
@@ -52,7 +69,7 @@ module.exports = {
         return;
       }
 
-      // Créez un embed pour le message Starboard
+      // Créer un embed pour le message Starboard
       const embed = new EmbedBuilder()
         .setColor("Gold")
         .setAuthor({
@@ -71,6 +88,8 @@ module.exports = {
         const attachment = reaction.message.attachments.first();
         if (attachment.contentType && attachment.contentType.startsWith("image/")) {
           embed.setImage(attachment.url);
+        } else {
+          console.log("❌ La pièce jointe n'est pas une image. Ignorée.");
         }
       }
 
