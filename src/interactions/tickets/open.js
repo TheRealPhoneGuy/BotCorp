@@ -35,8 +35,7 @@ module.exports = {
       await interaction.reply({
         content: "❌ Tu as déjà un ticket ouvert.",
         components: [],
-              flags: MessageFlagsBitField.Flags.Ephemeral,
-        
+        flags: MessageFlagsBitField.Flags.Ephemeral,
       });
       return;
     }
@@ -66,7 +65,7 @@ module.exports = {
       .setCustomId("close-ticket")
       .setLabel("🔒 Fermer le ticket")
       .setStyle(ButtonStyle.Danger);
-    
+
     const row = new ActionRowBuilder().addComponents(closeBtn);
 
     // Envoyez un message dans le canal du ticket
