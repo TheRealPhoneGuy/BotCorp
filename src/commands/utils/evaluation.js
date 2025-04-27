@@ -90,7 +90,7 @@ module.exports = {
       .setDescription("Evaluation envoyé!")
       interaction.reply({
         embeds: [embed],
-        flags: MessageFlagsBitField.Flags.Ephemeral, // Utilisez flags pour les réponses éphémères
+        flags: MessageFlagsBitField.Flags.Ephemeral,
       });
     } catch (error) {
       console.error(error);
