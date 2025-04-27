@@ -53,13 +53,21 @@ module.exports = {
   async run(interaction) {
     try {
       const type = interaction.options.getString("type");
-
+    
+      // Vérifier les permissions
+      if (!interaction.member.permissions.has("ADMINISTRATOR")) {
+        return interaction.reply({
+          content: "❌ Vous n'avez pas les permissions nécessaires pour utiliser cette commande.",
+          ephemeral: true,
+        });
+      }
+      
       if (type === "text") {
         const content = interaction.options.getString("contenu");
         if (!content) {
           return interaction.reply({
             content: "Vous devez fournir un contenu pour le message texte.",
-            flags: MessageFlagsBitField.Flags.Ephemeral, // Utilisation de MessageFlagsBitField
+            flags: MessageFlagsBitField.Flags.Ephemeral,
           });
         }
         await interaction.reply({ content: content });
