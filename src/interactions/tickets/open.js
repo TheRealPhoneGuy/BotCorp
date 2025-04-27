@@ -17,8 +17,6 @@ module.exports = {
    * @param {import("discord.js").ButtonInteraction} interaction
    */
   async run(interaction) {
-<<<<<<< HEAD
-=======
     // Vérifiez si le bot a les permissions nécessaires
     if (!interaction.guild.members.me.permissions.has("ManageChannels")) {
       return interaction.reply({
@@ -27,7 +25,6 @@ module.exports = {
       });
     }
 
->>>>>>> c6da2f3ab4729079c19cb2573fb20cdbebcc39c6
     const channelName = `ticket-${interaction.user.username.toLowerCase()}`;
 
     // Vérifiez si un ticket existe déjà pour cet utilisateur
@@ -38,8 +35,7 @@ module.exports = {
       await interaction.reply({
         content: "❌ Tu as déjà un ticket ouvert.",
         components: [],
-              flags: MessageFlagsBitField.Flags.Ephemeral,
-        
+        flags: MessageFlagsBitField.Flags.Ephemeral,
       });
       return;
     }
@@ -69,7 +65,7 @@ module.exports = {
       .setCustomId("close-ticket")
       .setLabel("🔒 Fermer le ticket")
       .setStyle(ButtonStyle.Danger);
-    
+
     const row = new ActionRowBuilder().addComponents(closeBtn);
 
     // Envoyez un message dans le canal du ticket
