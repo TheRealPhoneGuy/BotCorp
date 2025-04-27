@@ -48,6 +48,8 @@ Actuellement, **BotCorp** est développé par :
 
 Si vous souhaitez contribuer ou proposer des améliorations, n'hésitez pas à faire une **Pull Request** !
 
+Pour toute demande ouvrez un ticket sur le serveur discord.
+
 ---
 
 ## 🎉 Merci !
