@@ -11,7 +11,7 @@ module.exports = {
    */
   async run(client, member) {
     try {
-      const channel = member.guild.channels.cache.get("1365744417595723889");
+      const channel = member.guild.channels.cache.get(process.env.WELCOME_CHANNEL_ID);
 
       channel.send(`
         <:fleche_droite:1328460868425351210> **Un ${member} sauvage** vient __d'arriver__ sur la __DisCorp__ ! <:DisCorpLogo:1364959464150532207>

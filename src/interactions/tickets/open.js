@@ -7,7 +7,7 @@ const {
   ButtonStyle,
   MessageFlagsBitField,
 } = require("discord.js");
-const CAT = "1365744417595723888"; // ID de la catégorie où les tickets seront créés
+const CAT = process.env.TICKET_CATEGORY_ID; // ID de la catégorie où les tickets seront créés
 
 module.exports = {
   name: "open-ticket",

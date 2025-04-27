@@ -9,7 +9,7 @@ const client = new Client({
 });
 require("dotenv").config();
 
-client.login(process.env.Token);
+client.login(process.env.TOKEN);
 client.commands = new Collection();
 client.interactions = new Collection();
 client.color = "Blue";

@@ -1,3 +1,5 @@
+require('dotenv').config(); // Charger les variables d'environnement
+
 const {
   EmbedBuilder,
   SlashCommandBuilder,
@@ -58,14 +60,12 @@ module.exports = {
           embed
             .setDescription(
               `# \`🎫\` Ouvrez un ticket.
-Clique sur le buton ci-dessous pour ouvrir un ticket.
+Clique sur le bouton ci-dessous pour ouvrir un ticket.
 -# *Merci de ne pas spam les tickets & __**1**__ ticket par __problème__*`
             )
-            .setImage(
-              "https://media.discordapp.net/attachments/1285638581343228046/1365261944642080859/Image_Support.png?ex=680f4dc4&is=680dfc44&hm=e719ba7ccaf2385f6b17dd599baa2f837ac2555561c41d155bf7934d59b81406&=&format=webp&quality=lossless&width=1783&height=949"
-            )
+            .setImage(process.env.SUPPORT_IMAGE_URL) // Utiliser l'URL depuis .env
             .setFooter({
-              text: `DisCorp FR © ${String(new Date().getFullYear())}`, // L’équipe TerraNova vous répondra dès que possible 👨‍💻
+              text: `DisCorp FR © ${String(new Date().getFullYear())}`,
               iconURL: interaction.guild.iconURL(),
             }),
         ],

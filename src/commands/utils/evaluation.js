@@ -61,9 +61,7 @@ module.exports = {
   async run(interaction) {
     try {
       const { options } = interaction;
-      const channel = interaction.client.channels.cache.get(
-        "1358027513867014324"
-      );
+      const channel = interaction.client.channels.cache.get(process.env.EVALUATION_CHANNEL_ID);
 
       channel.send(`
 - __Nom du serveur:__ **${options.getString("server")}**
