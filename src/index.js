@@ -17,7 +17,7 @@ client.color = "Blue";
 require("./handlers/registers")(client);
 
 client.on("ready", () => {
-  console.log(`✅ Connecté en tant que ${client.user.tag}`);
+  console.log(`✅ ${client.user.tag} en préparation...`);
 });
 
 client.on("error", (error) => {
