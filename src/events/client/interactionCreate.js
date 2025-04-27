@@ -5,6 +5,18 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
+function getColor(colorName) {
+  const colors = {
+    red: "#FF0000",
+    green: "#00FF00",
+    blue: "#0000FF",
+    // Ajoutez d'autres couleurs si nécessaire
+  };
+  return colors[colorName] || "#FFFFFF"; // Retourne blanc par défaut si la couleur n'est pas trouvée
+}
+
+const { MessageFlags } = require("discord.js");
+
 const cooldowns = new Map();
 
 module.exports = {
@@ -29,7 +41,7 @@ module.exports = {
 
           return interaction.reply({
             embeds: [embed],
-            flags: MessageFlagsBitField.Flags.Ephemeral, // Remplacez ephemeral par flags
+            flags: MessageFlags.Flags.Ephemeral, // Remplacez ephemeral par flags
           });
         }
 
@@ -52,7 +64,7 @@ module.exports = {
 
             return interaction.reply({
               embeds: [embed],
-              flags: MessageFlagsBitField.Flags.Ephemeral, // Remplacez ephemeral par flags
+              flags: MessageFlags.Flags.Ephemeral, // Remplacez ephemeral par flags
             });
           }
         }
@@ -87,7 +99,7 @@ module.exports = {
             )
               .toArray()
               .join(", ")}\` pour utiliser ce composant.`,
-            flags: MessageFlagsBitField.Flags.Ephemeral, // Remplacez ephemeral par flags
+            flags: MessageFlags.Flags.Ephemeral, // Remplacez ephemeral par flags
           });
         }
 
@@ -111,7 +123,7 @@ module.exports = {
 
           return interaction.reply({
             embeds: [embed],
-            flags: MessageFlagsBitField.Flags.Ephemeral, // Remplacez ephemeral par flags
+            flags: MessageFlags.Flags.Ephemeral, // Remplacez ephemeral par flags
           });
         }
 
@@ -135,7 +147,7 @@ module.exports = {
           .reply({
             content:
               "Une erreur est survenue lors de l'exécution de l'interaction.",
-            flags: MessageFlagsBitField.Flags.Ephemeral, // Remplacez ephemeral par flags
+            flags: MessageFlags.Flags.Ephemeral, // Remplacez ephemeral par flags
           })
           .catch(() => {});
     }
