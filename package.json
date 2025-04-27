@@ -1,5 +1,5 @@
 {
-  "name": "botcorp",
+  "name": "BotCorp",
   "version": "1.0.0",
   "description": "Bot discord pour le server Discorp FR",
   "main": "src/index.js",
