@@ -61,8 +61,11 @@ module.exports = {
 Clique sur le buton ci-dessous pour ouvrir un ticket.
 -# *Merci de ne pas spam les tickets & __**1**__ ticket par __problème__*`
             )
+            .setThumbnail(
+              "https://discord.com/channels/1365744416442286121/1365744417595723889/1366000858084413502"
+            )
             .setFooter({
-              text: `Le Bloc Rouge © ${String(new Date().getFullYear())}`, // L’équipe TerraNova vous répondra dès que possible 👨‍💻
+              text: `DisCorp FR © ${String(new Date().getFullYear())}`, // L’équipe TerraNova vous répondra dès que possible 👨‍💻
               iconURL: interaction.guild.iconURL(),
             }),
         ],
