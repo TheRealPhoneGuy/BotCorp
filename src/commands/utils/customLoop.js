@@ -45,9 +45,20 @@ module.exports = {
       const interval = interaction.options.getInteger("intervalle") || 7200; // Par défaut, 2 heures (7200 secondes)
 
       // Vérifier les permissions
-      if (!channel.permissionsFor(interaction.guild.members.me).has("SendMessages")) {
+      const clientChannel = interaction.client.channels.cache.get(channel.id);
+
+      // Vérifiez si le canal existe
+      if (!clientChannel) {
         return interaction.reply({
-          content: "❌ Je n'ai pas la permission d'envoyer des messages dans ce salon.",
+          content: "❌ Le canal spécifié est introuvable.",
+          flags: 64, // Réponse éphémère
+        });
+      }
+
+      // Vérifiez si le bot a les permissions nécessaires
+      if (!clientChannel.permissionsFor(interaction.guild.members.me)?.has("SendMessages")) {
+        return interaction.reply({
+          content: "❌ Je n'ai pas la permission d'envoyer des messages dans ce canal.",
           flags: 64, // Réponse éphémère
         });
       }
@@ -80,6 +91,13 @@ module.exports = {
 
         loops.set(channel.id, loop);
 
+        // Log de succès
+        console.log(`✅ Boucle démarrée :`, {
+          channel: channel.name,
+          message: message,
+          interval: `${interval} secondes`,
+        });
+
         return interaction.reply({
           content: `✅ La boucle a été démarrée dans le salon ${channel} avec un intervalle de ${interval} secondes.`,
           flags: 64, // Réponse éphémère
@@ -96,13 +114,26 @@ module.exports = {
         clearInterval(loops.get(channel.id));
         loops.delete(channel.id);
 
+        // Log de succès
+        console.log(`✅ Boucle arrêtée :`, {
+          channel: channel.name,
+        });
+
         return interaction.reply({
           content: `✅ La boucle a été arrêtée dans le salon ${channel}.`,
           flags: 64, // Réponse éphémère
         });
       }
     } catch (error) {
-      console.error("Erreur dans la commande customloop :", error);
+      // Ajout de détails sur la commande dans le débogage
+      console.error("Erreur dans la commande customloop :", {
+        action: interaction.options.getString("action"),
+        channel: interaction.options.getChannel("salon")?.id || "Inconnu",
+        message: interaction.options.getString("message") || "/bump",
+        interval: interaction.options.getInteger("intervalle") || 7200,
+        error: error.message,
+      });
+
       return interaction.reply({
         content: "❌ Une erreur est survenue lors de l'exécution de la commande.",
         flags: 64, // Réponse éphémère

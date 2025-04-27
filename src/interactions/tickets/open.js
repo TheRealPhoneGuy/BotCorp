@@ -18,6 +18,13 @@ module.exports = {
    * @param {import("discord.js").ButtonInteraction} interaction
    */
   async run(interaction) {
+    if (!interaction.guild.me.permissions.has("ManageChannels")) {
+      return interaction.reply({
+        content: "Je n'ai pas la permission de gérer les canaux.",
+        ephemeral: true,
+      });
+    }
+
     const channelName = `ticket-${interaction.user.username.toLowerCase()}`;
 
     const existing = interaction.guild.channels.cache.find(
@@ -27,8 +34,7 @@ module.exports = {
       await interaction.reply({
         content: "❌ Tu as déjà un ticket ouvert.",
         components: [],
-              flags: MessageFlagsBitField.Flags.Ephemeral,
-        
+        flags: MessageFlagsBitField.Flags.Ephemeral,
       });
       return;
     }
@@ -56,7 +62,7 @@ module.exports = {
       .setCustomId("close-ticket")
       .setLabel("🔒 Fermer le ticket")
       .setStyle(ButtonStyle.Danger);
-    
+
     const row = new ActionRowBuilder().addComponents(closeBtn);
 
     await channel.send({
