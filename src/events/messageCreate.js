@@ -20,7 +20,7 @@ module.exports = {
           debugMessage = `📩 [Salon: ${message.channel.id}] Message reçu : "${message.content}" - Réaction ajoutée : ${reaction}`;
           break;
 
-        case "1358137495425912852":
+        case "1358027513867014324":
           reaction = "<:wumpus:1363470030913929347>";
           debugMessage = `📩 [Salon: ${message.channel.id}] Message reçu : "${message.content}" - Réaction ajoutée : ${reaction}`;
           break;
