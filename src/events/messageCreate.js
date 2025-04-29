@@ -24,11 +24,6 @@ module.exports = {
           reaction = "<:wumpus:1363470030913929347>";
           debugMessage = `📩 [Salon: ${message.channel.id}] Message reçu : "${message.content}" - Réaction ajoutée : ${reaction}`;
           break;
-        
-        case "your_channel_id_here": // Remplacez par l'ID de votre salon
-          reaction = "your_reaction_here"; // Remplacez par la réaction souhaitée
-          debugMessage = `📩 [Salon: ${message.channel.id}] Message reçu : "${message.content}" - Réaction ajoutée : ${reaction}`;
-        	break;
   
         default:
           return; // Ne rien faire si le message n'est pas dans les salons ciblés
