@@ -31,6 +31,7 @@ module.exports = {
         .setColor("Blue")
         .setTitle(`👋 Accueillons ${member.user.username} !`)
         .setDescription(`
+           
           <:fleche_droite:1328460868425351210> **Un ${member.toString()} sauvage** vient __d'arriver__ sur la __DisCorp__ ! 
 
           - <:decouverte:1357836737350733886> ***Besoin d'aide ?*** __Va lire les__ <#1357838330611630146>  __ou fais un__ <#1358024899545006206> ! <:Rocket:1341476644153462804>
